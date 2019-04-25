@@ -1,8 +1,48 @@
-<div class="jumbotron">
+<!-- <div class="jumbotron">
   <h2><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h2>
   <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
 </div>
+-->
 
+
+<div class="center-align margin-top-10">
+  <h4 class="teal-text text-darken-2">Sign In</h4>
+  <div class="row">
+    <form>
+      <div class="row">
+        <div class="input-field col s6 offset-s3">
+          <input id="username_or_email" type="text" class="validate">
+          <label for="username_or_email">Username or Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6 offset-s3">
+          <input id="password" type="password" class="validate">
+          <label for="password" class="input-font">Password</label>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div>
+    <form action="#" class="row">
+      <label class="margin-right-5">
+        <input name="group1" type="radio" checked />
+        <span>User</span>
+      </label>
+      <label>
+        <input name="group1" type="radio" />
+        <span>Admin</span>
+      </label>
+    </form>
+  </div>
+
+  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+    <i class="material-icons right">send</i>
+  </button>
+</div>
+
+<!--
 <div class="row marketing">
   <div class="col-lg-6">
     <h4>Resources</h4>
@@ -34,3 +74,4 @@
     </ul>
   </div>
 </div>
+-->
