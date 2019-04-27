@@ -3,3 +3,12 @@ mix ecto.create && mix ecto.migrate
 cd assets && npm install
 cd ..
 mix phx.server
+
+
+if [ "$1" == "run" ]; then
+  mix deps.get
+  mix ecto.migrate
+  cd assets && npm install
+  cd ..
+  mix phx.server
+fi

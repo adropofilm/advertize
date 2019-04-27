@@ -1,77 +1,52 @@
-<!-- <div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
-</div>
--->
-
-
 <div class="center-align margin-top-10">
+  <%= if @maybe_user == nil do %>
   <h4 class="teal-text text-darken-2">Sign In</h4>
   <div class="row">
-    <form>
+    <%= form_for @changeset, @action, fn f -> %>
       <div class="row">
         <div class="input-field col s6 offset-s3">
-          <input id="username_or_email" type="text" class="validate">
-          <label for="username_or_email">Username or Email</label>
+          <%= label f, :username, class: "control-label" %>
+          <%= text_input f, :username, class: "form-control" %>
+          <%= error_tag f, :username %>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s6 offset-s3">
-          <input id="password" type="password" class="validate">
-          <label for="password" class="input-font">Password</label>
+          <%= label f, :password, class: "control-label" %>
+          <%= password_input f, :password, class: "form-control" %>
+          <%= error_tag f, :password %>
         </div>
       </div>
-    </form>
+      <div class="row">
+        <div class="form-group">
+          <%= submit "Submit", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <form action="#" class="row">
-      <label class="margin-right-5">
-        <input name="group1" type="radio" checked />
-        <span>User</span>
-      </label>
-      <label>
-        <input name="group1" type="radio" />
-        <span>Admin</span>
-      </label>
-    </form>
-  </div>
-
-  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-    <i class="material-icons right">send</i>
-  </button>
+  <% else %>
+    <h1>Hello <%= @maybe_user.username%>!</h1>
+    <span><%= link "Logout", to: page_path(@conn, :logout), method: :post%></span>
+  <% end %>
 </div>
 
 <!--
-<div class="row marketing">
-  <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <a href="http://phoenixframework.org/docs/overview">Guides</a>
-      </li>
-      <li>
-        <a href="https://hexdocs.pm/phoenix">Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-    </ul>
-  </div>
 
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
-      </li>
-      <li>
-        <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
-      </li>
-    </ul>
-  </div>
+<div>
+  <form action="#" class="row">
+    <label class="margin-right-5">
+      <input name="group1" type="radio" checked />
+      <span>User</span>
+    </label>
+    <label>
+      <input name="group1" type="radio" />
+      <span>Admin</span>
+    </label>
+  </form>
 </div>
+
+<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+  <i class="material-icons right">send</i>
+</button>
+
 -->

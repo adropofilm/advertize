@@ -22,6 +22,11 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Configures for user authentication
+config :advertize, Advertize.Auth.Guardian,
+  issuer: "advertize",
+  secret_key: "KMVLi9ySxbuP1mszfuAUef0xBH59dpMfPtFVyNeSp52vYqglGbgcaqbKroYqez3F"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
