@@ -1,13 +1,12 @@
-mix deps.get
-mix ecto.create && mix ecto.migrate
-cd assets && npm install
-cd ..
-mix phx.server
-
-
-if [ "$1" == "run" ]; then
+if [ "$1" == "start" ]; then
   mix deps.get
   mix ecto.migrate
+  cd assets && npm install
+  cd ..
+  mix phx.server
+elif [ "$1" == "setup" ]; then
+  mix deps.get
+  mix ecto.create && mix ecto.migrate
   cd assets && npm install
   cd ..
   mix phx.server

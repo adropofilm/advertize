@@ -1,17 +1,30 @@
 # Advertize
+### Objective
+**Advertize** is a database driven application for advertisement managing. Users may post advertisements with details, and administrators may choose to support or decline pending advertisements as they see fit.
 
-To start your Phoenix server:
+### Setup
+To start your Phoenix server with the **automated** method:
+1. Clone repository and `cd` into the main folder.
+2. Initiate dependency installs, database creation and migration and server startup via the following command: `./runner stetup`
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+To start your Phoenix server with the **manual** method:
+  1. Install dependencies with `mix deps.get`
+  2. Create and migrate your database with `mix ecto.create && mix ecto.migrate`
+  3.  Install Node.js dependencies with `cd assets && npm install`
+  4. Start Phoenix endpoint with `mix phx.server`
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+Should you desire to stop the server, press `ctrl + c` twice.
 
-## Learn more
+### Running
+You may run the server one of two ways:
+1. `cd` into the main project directory and use the command `mix phx.server` to run the server.
+2. `cd` into the main project directory and use the command `./runner start` to update all dependencies, migrate any changes to the database you've made since the last run, etc.
+
+To be safe, the 2nd way is recommended especially if you're pulling changes or have made updates to database or node modules.
+
+
+### Learn more
 
   * Official website: http://www.phoenixframework.org/
   * Guides: http://phoenixframework.org/docs/overview

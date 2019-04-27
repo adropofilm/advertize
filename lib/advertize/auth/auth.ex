@@ -19,14 +19,21 @@ defmodule Advertize.Auth do
     query = from u in User,
       where: u.username == ^username
 
-    user =
-      Repo.one(query)
-      |> check_password(plain_text_password)
-      |> case do
-        {:ok, %Advertize.Auth.User{role: ^role} = account} -> {:ok, account}
-        {:error, msg} -> {:error, msg}
-        _ -> {:error, "User cannot login with this role. Please change."}
-      end
+    Repo.one(query)
+    |> check_password(plain_text_password)
+    |> case do
+      {:ok, user} ->
+        cond do
+          user.role == "admin" && role == "user" ->
+            {:ok, user}
+          user.role == "user" && role == "admin" ->
+            {:error, "User cannot login with this role. Please change."}
+          true ->
+            {:ok, user}
+        end
+      {:error, msg} -> {:error, msg}
+      _ -> {:error, "User cannot login with this role. Please change."}
+    end
   end
 
   defp check_password(nil, _), do: {:error, "Incorrect username or password"}
