@@ -9,7 +9,6 @@ defmodule Advertize.Auth.Guardian do
   def resource_from_claims(claims) do
     user = claims["sub"]
     |> Auth.get_user!
-    IO.inspect user
     {:ok, user}
 
     # If something goes wrong here return {:error, reason}

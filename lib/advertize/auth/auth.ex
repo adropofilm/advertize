@@ -12,12 +12,21 @@ defmodule Advertize.Auth do
   @doc """
   Searches the database for a user with the matching username, then
   checks that encrypting the plain text password matches in the
-  encrypted password that was stored during user creation.
+  encrypted password that was stored during user creation. Also ensures
+  user logs in with correct account
   """
-  def authenticate_user(username, plain_text_password) do
-    query = from u in User, where: u.username == ^username
-    Repo.one(query)
-    |> check_password(plain_text_password)
+  def authenticate_user(username, plain_text_password, role) do
+    query = from u in User,
+      where: u.username == ^username
+
+    user =
+      Repo.one(query)
+      |> check_password(plain_text_password)
+      |> case do
+        {:ok, %Advertize.Auth.User{role: ^role} = account} -> {:ok, account}
+        {:error, msg} -> {:error, msg}
+        _ -> {:error, "User cannot login with this role. Please change."}
+      end
   end
 
   defp check_password(nil, _), do: {:error, "Incorrect username or password"}

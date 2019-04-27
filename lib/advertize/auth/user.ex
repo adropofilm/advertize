@@ -10,7 +10,7 @@ defmodule Advertize.Auth.User do
     field :first_name, :string
     field :last_name, :string
     field :is_admin, :boolean
-
+    field :role, :string
     timestamps()
   end
 

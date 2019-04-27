@@ -2,6 +2,7 @@
   <%= if @maybe_user == nil do %>
   <h4 class="teal-text text-darken-2">Sign In</h4>
   <div class="row">
+
     <%= form_for @changeset, @action, fn f -> %>
       <div class="row">
         <div class="input-field col s6 offset-s3">
@@ -17,36 +18,36 @@
           <%= error_tag f, :password %>
         </div>
       </div>
+
+      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <br>
+      <div>
+        <p>
+          <label>
+            <input name="role" type="radio" value="user" checked />
+            <span>User</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input name="role" type="radio" value="admin" />
+            <span>Admin</span>
+          </label>
+        </p>
+      </div> <br>
+
       <div class="row">
         <div class="form-group">
-          <%= submit "Submit", class: "btn btn-primary" %>
+          <%= submit "Submit", class: "btn waves-effect waves-light" %>
         </div>
       </div>
+
     <% end %>
+
   </div>
   <% else %>
     <h1>Hello <%= @maybe_user.username%>!</h1>
     <span><%= link "Logout", to: page_path(@conn, :logout), method: :post%></span>
   <% end %>
 </div>
-
-<!--
-
-<div>
-  <form action="#" class="row">
-    <label class="margin-right-5">
-      <input name="group1" type="radio" checked />
-      <span>User</span>
-    </label>
-    <label>
-      <input name="group1" type="radio" />
-      <span>Admin</span>
-    </label>
-  </form>
-</div>
-
-<button class="btn waves-effect waves-light" type="submit" name="action">Submit
-  <i class="material-icons right">send</i>
-</button>
-
--->
