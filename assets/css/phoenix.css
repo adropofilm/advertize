@@ -9,3 +9,26 @@
 .margin-right-5 {
   margin-right: 5%;
 }
+
+.margin-right-10 {
+  margin-right: 10%;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.dd_button {
+  width: 10vw;
+}
+
+#advertisements {
+  margin: 0 0 0 10px;
+}
+
+#search-button {
+
+}

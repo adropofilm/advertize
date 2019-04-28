@@ -11,6 +11,9 @@ defmodule Advertize.Auth.User do
     field :last_name, :string
     field :is_admin, :boolean
     field :role, :string
+
+    has_many :advertisements, Advertize.Models.Advertisement
+
     timestamps()
   end
 

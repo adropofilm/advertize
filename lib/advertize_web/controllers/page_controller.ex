@@ -5,11 +5,10 @@ defmodule AdvertizeWeb.PageController do
   alias Advertize.Auth.Guardian
 
   def index(conn, _params) do
-    changeset = Auth.change_user(%User{})
-    maybe_user = Guardian.Plug.current_resource(conn)
-  
     conn
-    |> render("index.html", changeset: changeset, action: page_path(conn, :login), maybe_user: maybe_user)
+    |> render("index.html", changeset: Auth.change_user(%User{}),
+                            action: page_path(conn, :login),
+                            maybe_user: Guardian.Plug.current_resource(conn))
   end
 
   def login(conn, %{"role" => role, "user" => %{"username" => username, "password" => password}}) do
@@ -23,11 +22,21 @@ defmodule AdvertizeWeb.PageController do
     |> redirect(to: "/")
   end
 
-  defp login_reply({:ok, user}, conn) do
-    conn
-    |> put_flash(:success, "Welcome back!")
-    |> Guardian.Plug.sign_in(user)
-    |> redirect(to: "/")
+  defp login_reply({:ok, user, role}, conn) do
+    request =
+      conn #
+      |> put_flash(:success, "Welcome back!")
+      |> Guardian.Plug.sign_in(user)
+
+    case role do
+      "user" ->
+        request
+        |> redirect(to: "/home")
+      "admin" ->
+        request
+        |> redirect(to: "/dashboard")
+    end
+
   end
 
   def logout(conn, _) do
@@ -36,8 +45,12 @@ defmodule AdvertizeWeb.PageController do
     |> redirect(to: page_path(conn, :login))
   end
 
-  def secret(conn, _params) do
-    render(conn, "secret.html")
+  def dashboard(conn, _params) do
+    render(conn, "dashboard.html")
+  end
+
+  def home(conn, _params) do
+    render(conn, "home.html")
   end
 
 end

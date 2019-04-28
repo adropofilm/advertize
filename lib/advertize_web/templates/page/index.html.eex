@@ -44,7 +44,7 @@
       </div>
     <% end %>
   </div>
-  
+
   <% else %>
     <h1>Hello <%= @maybe_user.username%>!</h1>
     <span><%= link "Logout", to: page_path(@conn, :logout), method: :post%></span>

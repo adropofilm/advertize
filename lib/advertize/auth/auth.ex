@@ -25,11 +25,11 @@ defmodule Advertize.Auth do
       {:ok, user} ->
         cond do
           user.role == "admin" && role == "user" ->
-            {:ok, user}
+            {:ok, user, role}
           user.role == "user" && role == "admin" ->
             {:error, "User cannot login with this role. Please change."}
           true ->
-            {:ok, user}
+            {:ok, user, role}
         end
       {:error, msg} -> {:error, msg}
       _ -> {:error, "User cannot login with this role. Please change."}
