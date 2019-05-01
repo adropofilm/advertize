@@ -10,7 +10,13 @@ defmodule AdvertizeWeb.AdvertisementController do
   end
 
   def create(conn, %{"advertisement" => advertisement}) do
-    changeset = Advertisement.changeset(%Advertisement{}, advertisement)
+    maybe_user = Guardian.Plug.current_resource(conn)
+
+    changeset =
+      Advertisement.changeset(%Advertisement{}, advertisement)
+      |> Ecto.Changeset.cast(%{"user_id" => maybe_user.id}, [:user_id])
+      |> Ecto.Changeset.cast(%{"moderator_id" => " "}, [:moderator_id])
+      |> IO.inspect
 
     case Repo.insert(changeset) do
       {:ok, _post} ->
@@ -19,7 +25,7 @@ defmodule AdvertizeWeb.AdvertisementController do
         |> redirect(to: page_path(conn, :home))
       {:error, changeset} ->
         conn
-        |> render("new.html", changeset: changeset)
+        |> render("new.html", changeset: changeset, maybe_user: maybe_user)
     end
   end
 

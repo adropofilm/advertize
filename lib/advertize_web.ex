@@ -23,6 +23,7 @@ defmodule AdvertizeWeb do
       import Plug.Conn
       import AdvertizeWeb.Router.Helpers
       import AdvertizeWeb.Gettext
+      alias Advertize.Repo
     end
   end
 

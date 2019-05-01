@@ -2,7 +2,6 @@
   <%= if @maybe_user == nil do %>
   <h4 class="teal-text text-darken-2">Sign In</h4>
   <div class="row">
-
     <%= form_for @changeset, @action, fn f -> %>
       <div class="row">
         <div class="input-field col s6 offset-s3">

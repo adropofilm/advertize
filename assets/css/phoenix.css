@@ -33,6 +33,12 @@ body {
   align-items: center;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .dd_button {
   width: 10vw;
 }
@@ -84,5 +90,13 @@ body {
 
 .new_add_container {
   width: 75%;
+  padding: 5% 0 0 0;
+}
 
+.category-select {
+  display: list-item;
+}
+
+.display-none {
+  display: none;
 }
