@@ -4,9 +4,23 @@ defmodule AdvertizeWeb.AdvertisementController do
   alias Advertize.Models.Advertisement
 
   def new(conn, _params) do
-    #changeset = Advertisement.changeset(%Advertisement{}, %{})
-    render conn, "new.html" #, changeset: changeset
+    conn
+    |> render("new.html", maybe_user: Guardian.Plug.current_resource(conn),
+                          changeset: Advertisement.changeset(%Advertisement{}, %{}))
   end
 
+  def create(conn, %{"advertisement" => advertisement}) do
+    changeset = Advertisement.changeset(%Advertisement{}, advertisement)
+
+    case Repo.insert(changeset) do
+      {:ok, _post} ->
+        conn
+        |> put_flash(:info, "Advertisement Created")
+        |> redirect(to: page_path(conn, :home))
+      {:error, changeset} ->
+        conn
+        |> render("new.html", changeset: changeset)
+    end
+  end
 
 end

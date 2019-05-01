@@ -16,8 +16,11 @@
   </head>
 
   <body>
-    <nav class="teal">
+    <nav class="dark_blue">
       <div class="nav-wrapper container">
+        <%= if @maybe_user != nil do %>
+          <span><%= link "Logout", to: page_path(@conn, :logout), method: :post%></span>
+        <% end %>
       </div>
     </nav>
 

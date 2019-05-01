@@ -1,5 +1,13 @@
+body {
+  background-color: #E2F0F7;
+}
+
 .margin-top-10 {
   margin-top: 10%;
+}
+
+.margin-top-5 {
+  margin-top: 5%;
 }
 
 .margin-bottom-5 {
@@ -14,6 +22,10 @@
   margin-right: 10%;
 }
 
+.margin-top-3 {
+  margin-top: 3%;
+}
+
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -25,10 +37,52 @@
   width: 10vw;
 }
 
+.title-des-field {
+  width: 200px;
+}
+
 #advertisements {
   margin: 0 0 0 10px;
 }
 
 #search-button {
+  margin-left: 20%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.pale_blue {
+  background-color: #E2F0F7;
+}
+
+.dark_blue {
+  background-color: #3C659C;
+}
+
+.coral {
+  background-color: #E85A52;
+}
+
+.myadbuttons {
+  margin: 15px 0 15px 0;
+}
+
+#add_button {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.flex_end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.new_add_container {
+  width: 75%;
 
 }

@@ -10,7 +10,7 @@ defmodule Advertize.Models.Advertisement do
     field :price, :decimal, precision: 12, scale: 2
     field :moderator_id, :string
     field :category_id, :string
-    field :status, :string
+    field :status, :string, default: 1
 
     belongs_to :user, Advertize.Auth.User
 
@@ -23,7 +23,7 @@ defmodule Advertize.Models.Advertisement do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
-    |> validate_required([:name, :price, :title, :details, :datetime, :user_id, :moderator_id, :category_id, :status])
+    |> validate_required([:price, :title, :details, :datetime, :status])
     |> validate_number(:price, greater_than_or_equal_to: @zero)
   end
 

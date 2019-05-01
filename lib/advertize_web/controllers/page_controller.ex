@@ -46,11 +46,11 @@ defmodule AdvertizeWeb.PageController do
   end
 
   def dashboard(conn, _params) do
-    render(conn, "dashboard.html")
+    render(conn, "dashboard.html", maybe_user: Guardian.Plug.current_resource(conn))
   end
 
   def home(conn, _params) do
-    render(conn, "home.html")
+    render(conn, "home.html", maybe_user: Guardian.Plug.current_resource(conn))
   end
 
 end

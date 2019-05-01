@@ -1,4 +1,136 @@
-<div class="center-align margin-top-10">
-  <h4 class="teal-text text-darken-2">Secret Page</h4>
-  <p>FOR ADMIN</p>
+<div class="center-align margin-top-5">
+  <%= if @maybe_user != nil do %>
+    <div class="card">
+      <div class="card-tabs">
+        <ul class="tabs tabs-fixed-width">
+          <li class="tab"><a class="active" href="#unclaimedadvertisements"> Unclaimed Advertisements</a></li>
+          <li class="tab"><a href="#myadvertisements">My Advertisements</a></li>
+        </ul>
+      </div>
+      <div class="card-content white">
+        <!----------------------- ADVERTISEMENT TAB SECTION --------------------->
+        <div id="unclaimedadvertisements">
+          <div class="flex-row">
+            <div class="margin-right-10">
+              <ul id="dd_category" class="dropdown-content">
+                <li><a href = "#">Inbox</a></li>
+                <li><a href = "#!">Unread</a></li>
+                <li><a href = "#">Sent</a></li>
+              </ul>
+              <a class="btn dropdown-button dd_button flex-row coral" href = "#" data-activates="dd_category">
+                <span>Category</span>
+                <i class="material-icons">keyboard_arrow_down</i>
+              </a>
+            </div>
+            <div class="margin-right-10">
+              <ul id="dd_period" class="dropdown-content">
+                <li><a href = "#">Last 24 Hours</a></li>
+                <li><a href = "#!">Last Week</a></li>
+                <li><a href = "#">Last 3 Months</a></li>
+                <li><a href = "#">Last Year</a></li>
+              </ul>
+              <a class="btn dropdown-button flex-row coral" href="#" data-activates="dd_period">
+                <span> Period </span>
+                <i class="material-icons">keyboard_arrow_down</i>
+              </a>
+            </div>
+            <div class="input-field title-des-field">
+              <input type="text" name="firstname" class="validate">
+              <label for="last_name">Title, Description</label>
+            </div>
+            <a class="btn-floating coral" id="search-button"><i class="material-icons">search</i></a>
+          </div>
+          <table class="center-align">
+            <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Date</th>
+                  <th>Username</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Alvin</td>
+                <td>Eclair</td>
+                <td>$0.87</td>
+                <td>02/20/2018</td>
+                <td>adropofilm</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Alan</td>
+                <td>Jellybean</td>
+                <td>$3.76</td>
+                <td>02/20/2018</td>
+                <td>tumtii</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Jonathan</td>
+                <td>Lollipop</td>
+                <td>$7.00</td>
+                <td>02/20/2018</td>
+                <td>user</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+        <!--------------------- MY ADVERTISEMENTS TAB SECTION ------------------->
+
+        <div id="myadvertisements">
+          <div class="flex-row flex_end myadbuttons">
+            <a class="btn-floating coral" id="search-button"><i class="material-icons">done</i></a>
+          </div>
+
+          <table class="center-align">
+            <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Date</th>
+                  <th>Username</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Alvin</td>
+                <td>Eclair</td>
+                <td>$0.87</td>
+                <td>02/20/2018</td>
+                <td>adropofilm</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Alan</td>
+                <td>Jellybean</td>
+                <td>$3.76</td>
+                <td>02/20/2018</td>
+                <td>tumtii</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Jonathan</td>
+                <td>Lollipop</td>
+                <td>$7.00</td>
+                <td>02/20/2018</td>
+                <td>user</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <% else %>
+      <h1>ERROR: Must be logged in as ADMIN to view this page.</h1>
+      <span><%= link "Log in with proper credentials", to: page_path(@conn, :logout), method: :post%></span>
+    <% end %>
 </div>

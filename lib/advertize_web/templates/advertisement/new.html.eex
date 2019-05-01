@@ -1,6 +1,11 @@
 <h2> Create new Advertisement </h2>
 
-<div class="center-align margin-top-10">
-  <h4 class="teal-text text-darken-2">Sign In</h4>
-
+<div class="white new_add_container">
+  <%= form_for @changeset, advertisement_path(@conn, :create), fn f-> %>
+    <div class="form-group">
+      <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
+      <%= error_tag f, :title %>
+    </div>
+        <%= submit "Save Advertisement", class: "btn btn-primary" %>
+  <% end %>
 </div>
