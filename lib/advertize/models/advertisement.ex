@@ -1,6 +1,5 @@
 defmodule Advertize.Models.Advertisement do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use AdvertizeWeb, :model
 
   schema "advertisements" do
     field :title, :string
@@ -21,6 +20,16 @@ defmodule Advertize.Models.Advertisement do
     struct
     |> cast(params, @fields)
     |> validate_required([:price, :title, :details, :datetime])
+  end
+
+  def get_all_ads do
+    Repo.all(Advertisement)
+  end
+
+  def get_ad_by_user(user_id) do
+    __MODULE__
+    |> where([ad], ad.user_id == ^user_id)
+    |> Repo.all()
   end
 
 end

@@ -27,6 +27,15 @@ defmodule AdvertizeWeb do
     end
   end
 
+  def model do
+    quote do
+      import Ecto.Query
+      use Ecto.Schema
+      import Ecto.Changeset
+      alias Advertize.Repo
+    end
+  end
+
   def view do
     quote do
       use Phoenix.View, root: "lib/advertize_web/templates",

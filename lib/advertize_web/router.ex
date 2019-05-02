@@ -29,11 +29,14 @@ defmodule AdvertizeWeb.Router do
   scope "/", AdvertizeWeb do
     pipe_through [:browser, :auth, :ensure_auth]
 
-    
     get "/home", AdvertisementController, :home
     get "/dashboard", AdvertisementController, :dashboard
-    get "/advertisements/new", AdvertisementController, :new
     post "/advertisements", AdvertisementController, :create
+    get "/advertisements/new", AdvertisementController, :new
+    put "/advertisements/:id/edit", AdvertisementController, :update
+    get "/advertisements/:id/edit", AdvertisementController, :edit
+    delete "/advertisements/:id", AdvertisementController, :delete
+
   end
 
 end

@@ -52,33 +52,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Alvin</td>
-                <td>Eclair</td>
-                <td>$0.87</td>
-                <td>02/20/2018</td>
-                <td>adropofilm</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Alan</td>
-                <td>Jellybean</td>
-                <td>$3.76</td>
-                <td>02/20/2018</td>
-                <td>tumtii</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Jonathan</td>
-                <td>Lollipop</td>
-                <td>$7.00</td>
-                <td>02/20/2018</td>
-                <td>user</td>
-              </tr>
+              <%= for ad <- @advertisements do %>
+                <tr>
+                  <td><%= ad.id %></td>
+                  <td><%= ad.title %></td>
+                  <td><%= ad.details %></td>
+                  <td><%= ad.price %></td>
+                  <td><%= ad.datetime %></td>
+                  <td><%= ad.user_id %></td>
+                </tr>
+              <% end %>
             </tbody>
           </table>
-
         </div>
 
         <!--------------------- MY ADVERTISEMENTS TAB SECTION ------------------->

@@ -1,0 +1,46 @@
+<div class="white new_add_container">
+    <h4 class="teal-text text-darken-2 center-align">Create New Ad</h4>
+  <%= form_for @changeset, advertisement_path(@conn, :edit, @advertisement), fn f-> %>
+
+    <div class="row">
+      <div class="input-field col s9 offset-s1">
+        <%= label f, :title, class: "control-label" %>
+        <%= text_input f, :title, class: "form-control" %>
+        <%= error_tag f, :title %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s9 offset-s1">
+        <%= label f, :details, class: "control-label" %>
+        <%= text_input f, :details, class: "form-control" %>
+        <%= error_tag f, :details %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s9 offset-s1">
+        <%= date_input f, :datetime %>
+        <%= error_tag f, :datetime %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s9 offset-s1">
+        <%= label f, :price, class: "control-label" %>
+        <%= number_input f, :price %>
+        <%= error_tag f, :price %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s9 offset-s1">
+        <%= select f, :category_id, ["Vehicles": 1, "Housing": 2, "Electronics": 3, "Childcare": 4, "Education": 5], class: "form-control category-select" %>
+        <%= error_tag f, :category_id %>
+      <div>
+    </div>
+
+    <%= submit "Save Advertisement", class: "btn btn-primary center-align margin-top-10" %>
+
+  <% end %>
+</div>
