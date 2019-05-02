@@ -27,7 +27,7 @@ defmodule AdvertizeWeb.AdvertisementController do
       {:ok, _post} ->
         conn
         |> put_flash(:info, "Advertisement Created")
-        |> redirect(to: page_path(conn, :home))
+        |> redirect(to: advertisement_path(conn, :home))
       {:error, changeset} ->
         conn
         |> render("new.html", changeset: changeset, maybe_user: maybe_user)

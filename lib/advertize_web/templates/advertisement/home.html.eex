@@ -40,35 +40,25 @@
           </div>
           <a class="btn-floating coral" id="search-button"><i class="material-icons">search</i></a>
         </div>
+
         <table class="center-align">
           <thead>
             <tr>
                 <th>Title</th>
-                <th>Description</th>
+                <th>Details</th>
                 <th>Price</th>
                 <th>Date</th>
             </tr>
           </thead>
-
           <tbody>
-            <tr>
-              <td>Alvin</td>
-              <td>Eclair</td>
-              <td>$0.87</td>
-              <td>02/20/2018</td>
-            </tr>
-            <tr>
-              <td>Alan</td>
-              <td>Jellybean</td>
-              <td>$3.76</td>
-              <td>02/20/2018</td>
-            </tr>
-            <tr>
-              <td>Jonathan</td>
-              <td>Lollipop</td>
-              <td>$7.00</td>
-              <td>02/20/2018</td>
-            </tr>
+            <%= for ad <- @advertisements do %>
+              <tr>
+                <td><%= ad.title %></td>
+                <td><%= ad.details %></td>
+                <td><%= ad.price %></td>
+                <td><%= ad.datetime %></td>
+              </tr>
+            <% end %>
           </tbody>
         </table>
 
@@ -115,8 +105,7 @@
       </div>
     </div>
     <div class="margin-right-5 margin-top-3 flex_end">
-    <!--  <a class="btn-floating coral" id="add_button" ><i class="material-icons">add</i></a> -->
-    <%= link "add", to: advertisement_path(@conn, :new) %>
+    <i class="material-icons margin-bottom-2"><%= link "add", class: "btn-floating coral", to: advertisement_path(@conn, :new) %></i>
     </div>
   </div>
 </div>
