@@ -28,9 +28,10 @@ defmodule AdvertizeWeb.Router do
   # Definitely logged in scope
   scope "/", AdvertizeWeb do
     pipe_through [:browser, :auth, :ensure_auth]
-    get "/home", PageController, :home
-    get "/dashboard", PageController, :dashboard
 
+    
+    get "/home", AdvertisementController, :home
+    get "/dashboard", AdvertisementController, :dashboard
     get "/advertisements/new", AdvertisementController, :new
     post "/advertisements", AdvertisementController, :create
   end

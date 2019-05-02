@@ -2,6 +2,13 @@ defmodule AdvertizeWeb.AdvertisementController do
   use AdvertizeWeb, :controller
   alias Advertize.Models.Advertisement
 
+  def index(conn, _params) do
+    advertisements = Repo.all(Advertisement)
+
+    render conn, "index.html", advertisements: advertisements
+  end
+
+
   def new(conn, _params) do
     conn
     |> render("new.html", maybe_user: Guardian.Plug.current_resource(conn),
@@ -25,6 +32,22 @@ defmodule AdvertizeWeb.AdvertisementController do
         conn
         |> render("new.html", changeset: changeset, maybe_user: maybe_user)
     end
+  end
+
+  def dashboard(conn, _params) do
+    advertisements = Repo.all(Advertisement)
+
+    conn
+    |> render("dashboard.html", maybe_user: Guardian.Plug.current_resource(conn),
+                  advertisements: advertisements)
+  end
+
+  def home(conn, _params) do
+    advertisements = Repo.all(Advertisement)
+
+    conn
+    |> render("home.html", maybe_user: Guardian.Plug.current_resource(conn),
+                  advertisements: advertisements)
   end
 
 end

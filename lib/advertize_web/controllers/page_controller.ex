@@ -45,12 +45,4 @@ defmodule AdvertizeWeb.PageController do
     |> redirect(to: page_path(conn, :login))
   end
 
-  def dashboard(conn, _params) do
-    render(conn, "dashboard.html", maybe_user: Guardian.Plug.current_resource(conn))
-  end
-
-  def home(conn, _params) do
-    render(conn, "home.html", maybe_user: Guardian.Plug.current_resource(conn))
-  end
-
 end
