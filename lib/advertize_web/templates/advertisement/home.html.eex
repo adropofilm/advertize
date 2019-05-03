@@ -44,10 +44,10 @@
         <table class="center-align">
           <thead>
             <tr>
-                <th>Title</th>
-                <th>Details</th>
-                <th>Price</th>
-                <th>Date</th>
+              <th>Title</th>
+              <th>Details</th>
+              <th>Price</th>
+              <th>Date</th>
             </tr>
           </thead>
           <tbody>
@@ -57,8 +57,6 @@
                 <td><%= ad.details %></td>
                 <td><%= ad.price %></td>
                 <td><%= ad.datetime %></td>
-                <td><%= link "Edit", to: advertisement_path(@conn, :edit, ad) %></td>
-                <td><%= link "Delete", to: advertisement_path(@conn, :delete, ad), method: :delete %><td>
               </tr>
             <% end %>
           </tbody>
@@ -69,11 +67,6 @@
       <!--------------------- MY ADVERTISEMENTS TAB SECTION ------------------->
 
       <div id="myadvertisements">
-        <div class="flex-row flex_end myadbuttons">
-          <a class="btn-floating coral" id="search-button"><i class="material-icons">delete</i></a>
-          <a class="btn-floating coral" id="search-button"><i class="material-icons">edit</i></a>
-        </div>
-
         <table class="center-align">
           <thead>
             <tr>
@@ -82,6 +75,8 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Date</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -92,8 +87,8 @@
                 <td><%= ad.details %></td>
                 <td><%= ad.price %></td>
                 <td><%= ad.datetime %></td>
-                <td><%= link "Edit", to: advertisement_path(@conn, :edit, ad) %></td>
-                <td><%= link "Delete", to: advertisement_path(@conn, :delete, ad), method: :delete %><td>
+                <td><i class="material-icons"><%= link "edit", to: advertisement_path(@conn, :edit, ad) %></i></td>
+                <td><i class="material-icons"><%= link "delete", to: advertisement_path(@conn, :delete, ad), method: :delete %></i><td>
               </tr>
             <% end %>
           </tbody>

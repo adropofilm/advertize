@@ -1,6 +1,6 @@
 defmodule AdvertizeWeb.AdvertisementController do
   use AdvertizeWeb, :controller
-  alias Advertize.Models.Advertisement
+  alias Advertize.Models.{ Advertisement, Category }
 
   def index(conn, _params) do
     advertisements = Advertisement.get_all_ads
@@ -67,7 +67,8 @@ defmodule AdvertizeWeb.AdvertisementController do
     advertisements = Repo.all(Advertisement)
 
     conn
-    |> render("dashboard.html", maybe_user: Guardian.Plug.current_resource(conn), advertisements: advertisements)
+    |> render("dashboard.html", maybe_user: Guardian.Plug.current_resource(conn),
+        advertisements: advertisements, categories: Category.get_all_categories)
   end
 
   def home(conn, _params) do
@@ -76,7 +77,6 @@ defmodule AdvertizeWeb.AdvertisementController do
     user_ads =
       Guardian.Plug.current_resource(conn).id
       |> Advertisement.get_ad_by_user
-
 
     conn
     |> render("home.html", maybe_user: Guardian.Plug.current_resource(conn), advertisements: advertisements,

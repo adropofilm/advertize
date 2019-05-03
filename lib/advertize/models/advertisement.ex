@@ -23,12 +23,18 @@ defmodule Advertize.Models.Advertisement do
   end
 
   def get_all_ads do
-    Repo.all(Advertisement)
+    Repo.all(__MODULE__)
   end
 
   def get_ad_by_user(user_id) do
     __MODULE__
     |> where([ad], ad.user_id == ^user_id)
+    |> Repo.all()
+  end
+
+  def get_ad_by_category(category_id) do
+    __MODULE__
+    |> where([ad], ad.category_id == ^category_id)
     |> Repo.all()
   end
 

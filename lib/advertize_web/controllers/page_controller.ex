@@ -1,8 +1,5 @@
 defmodule AdvertizeWeb.PageController do
   use AdvertizeWeb, :controller
-  alias Advertize.Auth
-  alias Advertize.Auth.User
-  alias Advertize.Auth.Guardian
 
   def index(conn, _params) do
     conn

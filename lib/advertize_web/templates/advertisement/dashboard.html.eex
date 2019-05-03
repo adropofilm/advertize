@@ -13,9 +13,9 @@
           <div class="flex-row">
             <div class="margin-right-10">
               <ul id="dd_category" class="dropdown-content">
-                <li><a href = "#">Inbox</a></li>
-                <li><a href = "#!">Unread</a></li>
-                <li><a href = "#">Sent</a></li>
+                <%= for category <- @categories do %>
+                  <li><%= category.category_name %></li>
+                <% end %>
               </ul>
               <a class="btn dropdown-button dd_button flex-row coral" href = "#" data-activates="dd_category">
                 <span>Category</span>
@@ -69,19 +69,16 @@
         <!--------------------- MY ADVERTISEMENTS TAB SECTION ------------------->
 
         <div id="myadvertisements">
-          <div class="flex-row flex_end myadbuttons">
-            <a class="btn-floating coral" id="search-button"><i class="material-icons">done</i></a>
-          </div>
-
           <table class="center-align">
             <thead>
               <tr>
-                  <th>ID</th>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Price</th>
-                  <th>Date</th>
-                  <th>Username</th>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Username</th>
+                <th>Approve</th>
               </tr>
             </thead>
             <tbody>
@@ -92,6 +89,7 @@
                 <td>$0.87</td>
                 <td>02/20/2018</td>
                 <td>adropofilm</td>
+                <td><a class="btn-floating coral" id="search-button"><i class="material-icons">done</i></a></td>
               </tr>
               <tr>
                 <td>2</td>

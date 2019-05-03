@@ -24,6 +24,9 @@ defmodule AdvertizeWeb do
       import AdvertizeWeb.Router.Helpers
       import AdvertizeWeb.Gettext
       alias Advertize.Repo
+      alias Advertize.Auth
+      alias Advertize.Auth.User
+      alias Advertize.Auth.Guardian
     end
   end
 
