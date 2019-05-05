@@ -3,6 +3,12 @@
 **Advertize** is a database driven application for advertisement managing. Users may post advertisements with details, and administrators may choose to support or decline pending advertisements as they see fit.
 
 ### Setup
+#### Installation:
+- [Elixir](https://elixir-lang.org/install.html)
+- [Postgres](https://www.postgresql.org/download/)
+- [Phoenix](https://hexdocs.pm/phoenix/installation.html#content)
+
+#### Instructions:
 To start your Phoenix server with the **automated** method:
 1. Clone repository and `cd` into the main folder.
 2. Initiate dependency installs, database creation and migration and server startup via the following command: `./runner stetup`
