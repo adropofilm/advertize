@@ -9,7 +9,8 @@ defmodule Advertize.Models.Advertisement do
     field :moderator_id, :string, default: " "
     field :category_id, :string, default: " "
 
-    belongs_to :user, Advertize.Auth.User
+    belongs_to :user, Advertize.Auth.User, foreign_key: :user_id
+    belongs_to :status, Advertize.Models.Status, foreign_key: :status_id
 
     timestamps()
   end

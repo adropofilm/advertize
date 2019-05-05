@@ -1,6 +1,6 @@
 defmodule AdvertizeWeb.AdvertisementController do
   use AdvertizeWeb, :controller
-  alias Advertize.Models.{ Advertisement, Category }
+  alias Advertize.Models.{ Advertisement, Category, Status }
 
   def index(conn, _params) do
     advertisements = Advertisement.get_all_ads
@@ -16,10 +16,14 @@ defmodule AdvertizeWeb.AdvertisementController do
 
   def create(conn, %{"advertisement" => advertisement}) do
     maybe_user = Guardian.Plug.current_resource(conn)
+      |> Repo.preload(:advertisements)
+    IO.inspect maybe_user
+    [status] = Status.get_by_type("pending")
+    IO.inspect status
 
     changeset =
       Advertisement.changeset(%Advertisement{}, advertisement)
-      |> Ecto.Changeset.cast(%{"user_id" => maybe_user.id}, [:user_id])
+      |> Ecto.Changeset.change(%{:user_id => maybe_user.id, :status_id => status.id})
       |> IO.inspect
 
     case Repo.insert(changeset) do

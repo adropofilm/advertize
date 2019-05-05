@@ -1,10 +1,10 @@
 defmodule Advertize.Models.Status do
-  use Ecto.Schema
-  import Ecto.Changeset
+  use AdvertizeWeb, :model
 
-  @primary_key {:id, :binary_id, autogenerate: true}
-  schema "status" do
+  schema "statuses" do
     field :status_name, :string
+
+    has_many :advertisements, Advertize.Models.Advertisement
   end
 
   @fields ~w(pending active disapproved)
@@ -15,5 +15,12 @@ defmodule Advertize.Models.Status do
     |> validate_required([:status_name])
     |> validate_inclusion(:status_name, @fields)
   end
+
+  def get_by_type(status_name) do
+    __MODULE__
+    |> where([st], st.status_name == ^status_name)
+    |> Repo.all()
+  end
+
 
 end
