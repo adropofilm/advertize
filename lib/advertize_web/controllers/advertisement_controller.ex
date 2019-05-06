@@ -11,19 +11,24 @@ defmodule AdvertizeWeb.AdvertisementController do
 
     conn
     |> render("new.html", maybe_user: Guardian.Plug.current_resource(conn),
-                          changeset: Advertisement.changeset(%Advertisement{}, %{}))
+                          changeset: Advertisement.changeset(%Advertisement{}, %{}),
+                          categories: Category.get_all_categories)
   end
 
   def create(conn, %{"advertisement" => advertisement}) do
+    cat_id = String.to_integer(advertisement["category_id"])
     maybe_user = Guardian.Plug.current_resource(conn)
       |> Repo.preload(:advertisements)
-    IO.inspect maybe_user
+    #IO.inspect maybe_user
     [status] = Status.get_by_type("pending")
-    IO.inspect status
+    #IO.inspect status
+    [category] =
+      cat_id
+      |> Category.get_by_id
 
     changeset =
       Advertisement.changeset(%Advertisement{}, advertisement)
-      |> Ecto.Changeset.change(%{:user_id => maybe_user.id, :status_id => status.id})
+      |> Ecto.Changeset.change(%{:user_id => maybe_user.id, :status_id => status.id, :category_id => category.id})
       |> IO.inspect
 
     case Repo.insert(changeset) do
@@ -33,7 +38,7 @@ defmodule AdvertizeWeb.AdvertisementController do
         |> redirect(to: advertisement_path(conn, :home))
       {:error, changeset} ->
         conn
-        |> render("new.html", changeset: changeset, maybe_user: maybe_user)
+        |> render("new.html", changeset: changeset, maybe_user: maybe_user, categories: Category.get_all_categories)
     end
   end
 

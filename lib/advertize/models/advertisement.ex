@@ -7,10 +7,10 @@ defmodule Advertize.Models.Advertisement do
     field :datetime, :string
     field :price, :float
     field :moderator_id, :string, default: " "
-    field :category_id, :string, default: " "
 
     belongs_to :user, Advertize.Auth.User, foreign_key: :user_id
     belongs_to :status, Advertize.Models.Status, foreign_key: :status_id
+    belongs_to :category, Advertize.Models.Category, foreign_key: :category_id
 
     timestamps()
   end
@@ -20,6 +20,7 @@ defmodule Advertize.Models.Advertisement do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
+    |> foreign_key_constraint(:category_id)
     |> validate_required([:price, :title, :details, :datetime])
   end
 
