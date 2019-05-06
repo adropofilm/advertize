@@ -1,5 +1,6 @@
 defmodule Advertize.Models.Advertisement do
   use AdvertizeWeb, :model
+  alias Advertize.Models.{ Status, Category }
 
   schema "advertisements" do
     field :title, :string
@@ -24,6 +25,12 @@ defmodule Advertize.Models.Advertisement do
     |> validate_required([:price, :title, :details, :datetime])
   end
 
+  def create(params, category_id, user_id) do
+    changeset(%__MODULE__{}, params)
+    |> Ecto.Changeset.change(%{:user_id => user_id, :status_id => Status.default_status, :category_id => get_ad_category(params)})
+    |> Repo.insert
+  end
+
   def get_all_ads do
     Repo.all(__MODULE__)
   end
@@ -38,6 +45,14 @@ defmodule Advertize.Models.Advertisement do
     __MODULE__
     |> where([ad], ad.category_id == ^category_id)
     |> Repo.all()
+  end
+
+  defp get_ad_category(params) do
+    [category] =
+      params["category_id"]
+      |> String.to_integer
+      |> Category.get_by_id
+    category.id
   end
 
 end

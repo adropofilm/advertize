@@ -104,3 +104,9 @@ body {
 .display-none {
   display: none;
 }
+
+.select {
+  background-color: #E85A52;
+  color: white;
+  border: none!important;
+}

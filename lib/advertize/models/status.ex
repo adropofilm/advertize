@@ -22,5 +22,9 @@ defmodule Advertize.Models.Status do
     |> Repo.all()
   end
 
+  def default_status do
+    [status] = get_by_type("pending")
+    status.id
+  end
 
 end
