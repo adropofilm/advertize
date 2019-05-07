@@ -13,9 +13,9 @@
         <div class="flex-row">
           <div class="margin-right-10">
             <ul id="dd_category" class="dropdown-content">
-              <li><a href = "#">Inbox</a></li>
-              <li><a href = "#!">Unread</a></li>
-              <li><a href = "#">Sent</a></li>
+              <%= for category <- @categories do %>
+                <li><%= category.category_name %></li>
+              <% end %>
             </ul>
             <a class="btn dropdown-button dd_button flex-row coral" href = "#" data-activates="dd_category">
               <span>Category</span>

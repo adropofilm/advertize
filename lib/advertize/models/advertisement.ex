@@ -31,6 +31,11 @@ defmodule Advertize.Models.Advertisement do
     |> Repo.insert
   end
 
+  def show(params) do
+    IO.inspect "HERE WE ARE!!!!!!!!!!!!!!!!"
+    IO.inspect params
+  end
+
   def get_all_ads do
     Repo.all(__MODULE__)
   end

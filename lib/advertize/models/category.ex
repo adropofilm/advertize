@@ -15,6 +15,11 @@ defmodule Advertize.Models.Category do
     |> validate_required([:category_name])
   end
 
+  def get_unformatted_cats do
+    __MODULE__
+    |> Repo.all
+  end
+
   def get_all_categories do
     categories = from(cat in __MODULE__, select: [cat.category_name, cat.id])
       |> Repo.all()

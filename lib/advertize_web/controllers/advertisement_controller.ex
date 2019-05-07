@@ -63,7 +63,7 @@ defmodule AdvertizeWeb.AdvertisementController do
 
     conn
     |> render("dashboard.html", maybe_user: Guardian.Plug.current_resource(conn),
-        advertisements: advertisements, categories: Category.get_all_categories)
+        advertisements: advertisements, categories: Category.get_unformatted_cats)
   end
 
   def home(conn, _params) do
@@ -72,7 +72,16 @@ defmodule AdvertizeWeb.AdvertisementController do
 
     conn
     |> render("home.html", maybe_user: user, advertisements: advertisements,
-              user_ads: get_ads(user))
+              user_ads: get_ads(user), categories: Category.get_unformatted_cats)
+  end
+
+  def show(conn, params) do
+    conn
+    |> render("home.html", maybe_user: Guardian.Plug.current_resource(conn),
+                          changeset: Advertisement.changeset(%Advertisement{}, %{}),
+                          categories: Category.get_all_categories)
+
+    #Advertisement.show(params)
   end
 
   defp get_ads(user) do
