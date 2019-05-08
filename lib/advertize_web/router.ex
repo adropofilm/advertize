@@ -30,7 +30,10 @@ defmodule AdvertizeWeb.Router do
     pipe_through [:browser, :auth, :ensure_auth]
 
     get "/home", AdvertisementController, :home
-    put "/home", AdvertisementController, :show
+    put "/advertisements/:id", AdvertisementController, :decline
+
+    post "/home", AdvertisementController, :filter_home
+    post "/dashboard", AdvertisementController, :filter_dashboard
     get "/dashboard", AdvertisementController, :dashboard
     post "/advertisements", AdvertisementController, :create
     get "/advertisements/new", AdvertisementController, :new

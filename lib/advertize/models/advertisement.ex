@@ -31,25 +31,68 @@ defmodule Advertize.Models.Advertisement do
     |> Repo.insert
   end
 
-  def show(params) do
-    IO.inspect "HERE WE ARE!!!!!!!!!!!!!!!!"
-    IO.inspect params
-  end
-
   def get_all_ads do
     Repo.all(__MODULE__)
+    |> Repo.preload([:user, :category, :status])
   end
 
   def get_ad_by_user(user_id) do
     __MODULE__
     |> where([ad], ad.user_id == ^user_id)
     |> Repo.all()
+    |> Repo.preload([:user, :category, :status])
+  end
+
+  def filter_adds(%{"category_id" => category_id, "datetime" => datetime, "phrase" => phrase} = params) do
+    category_id = get_ad_category(params)
+
+    if datetime == "" && phrase == "" && category_id != "", do: get_ad_by_category(category_id) |> IO.inspect
+    if datetime != "" && phrase == "" && category_id != "", do: get_ad_by_datetime_and_cat(datetime, category_id)
+    if datetime == "" && phrase != "" && category_id != "", do: get_ad_by_phrase_and_cat(phrase, category_id)
+    if datetime != "" && phrase != "" && category_id != "", do: get_ad_by_all_filters(datetime, category_id, phrase)
   end
 
   def get_ad_by_category(category_id) do
     __MODULE__
     |> where([ad], ad.category_id == ^category_id)
     |> Repo.all()
+    |> Repo.preload([:user, :category, :status])
+  end
+
+  def get_ad_by_datetime(datetime) do
+    __MODULE__
+    |> where([ad], ad.datetime == ^datetime)
+    |> Repo.all()
+    |> Repo.preload([:user, :category, :status])
+  end
+
+  def get_ad_by_datetime_and_cat(datetime, category_id) do
+    __MODULE__
+    |> where([ad], ad.datetime == ^datetime)
+    |> where([ad], ad.category_id == ^category_id)
+    |> Repo.all()
+    |> Repo.preload([:user, :category, :status])
+  end
+
+  def get_ad_by_all_filters(datetime, category_id, phrase) do
+    __MODULE__
+    |> where([ad], ad.datetime == ^datetime)
+    |> where([ad], ad.category_id == ^category_id)
+    |> where([ad], like(ad.title, ^"%#{String.replace(phrase, "%", "\\%")}%"))
+    |> Repo.all()
+    |> Repo.preload([:user, :category, :status])
+  end
+
+  def get_ad_by_phrase_and_cat(phrase, category_id) do
+    __MODULE__
+    |> where([ad], ad.category_id == ^category_id)
+    |> where([ad], like(ad.title, ^"%#{String.replace(phrase, "%", "\\%")}%"))
+    |> Repo.all()
+    |> Repo.preload([:user, :category, :status])
+  end
+
+  def decline(advertisement) do
+    
   end
 
   defp get_ad_category(params) do

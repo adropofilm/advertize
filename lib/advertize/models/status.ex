@@ -27,4 +27,9 @@ defmodule Advertize.Models.Status do
     status.id
   end
 
+  def declined_status do
+    [status] = get_by_type("disapproved")
+    status.id
+  end
+
 end

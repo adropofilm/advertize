@@ -63,6 +63,14 @@ body {
   align-items: center;
 }
 
+.button-search {
+  width: 150px;
+  margin: 0 0 0 100px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: darkgrey;
+}
+
 .pale_blue {
   background-color: #E2F0F7;
 }
@@ -109,4 +117,8 @@ body {
   background-color: #E85A52;
   color: white;
   border: none!important;
+}
+
+.width_200 {
+  width: 200px;
 }

@@ -59,11 +59,11 @@ defmodule AdvertizeWeb.AdvertisementController do
   end
 
   def dashboard(conn, _params) do
-    advertisements = Repo.all(Advertisement)
+    advertisements = Repo.all(Advertisement) |> Repo.preload(:user)
 
     conn
     |> render("dashboard.html", maybe_user: Guardian.Plug.current_resource(conn),
-        advertisements: advertisements, categories: Category.get_unformatted_cats)
+        advertisements: advertisements, categories: Category.get_unformatted_cats, declined_stat: Status.declined_status)
   end
 
   def home(conn, _params) do
@@ -72,16 +72,42 @@ defmodule AdvertizeWeb.AdvertisementController do
 
     conn
     |> render("home.html", maybe_user: user, advertisements: advertisements,
-              user_ads: get_ads(user), categories: Category.get_unformatted_cats)
+              user_ads: get_ads(user), categories: Category.get_unformatted_cats,
+              declined_stat: Status.declined_status)
   end
 
-  def show(conn, params) do
-    conn
-    |> render("home.html", maybe_user: Guardian.Plug.current_resource(conn),
-                          changeset: Advertisement.changeset(%Advertisement{}, %{}),
-                          categories: Category.get_all_categories)
+  def filter_home(conn, %{"query" => params} ) do
+    user = Guardian.Plug.current_resource(conn)
 
-    #Advertisement.show(params)
+    conn
+    |> render("home.html", maybe_user: user, advertisements: Advertisement.filter_adds(params),
+              user_ads: get_ads(user), categories: Category.get_unformatted_cats, declined_stat: Status.declined_status)
+  end
+
+  def filter_dashboard(conn, %{"query" => params} ) do
+    IO.inspect params
+    user = Guardian.Plug.current_resource(conn)
+
+    conn
+    |> render("dashboard.html", maybe_user: user, advertisements: Advertisement.filter_adds(params),
+              user_ads: get_ads(user), categories: Category.get_unformatted_cats, declined_stat: Status.declined_status)
+  end
+
+  def decline(conn,  %{"id" => advertisement_id}) do
+    Repo.get(Advertisement, advertisement_id)
+    |> Ecto.Changeset.change(status_id: Status.declined_status)
+    |> Repo.update
+    |> case do
+      {:ok, _advertisement} ->
+        conn
+        |> put_flash(:info, "Advertisement Declined")
+        |> redirect(to: advertisement_path(conn, :dashboard))
+      {:error, changeset} ->
+        conn
+        |> put_flash(:info, "Advertisement Not Declined")
+        |> redirect(to: advertisement_path(conn, :dashboard))
+    end
+
   end
 
   defp get_ads(user) do

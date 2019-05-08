@@ -11,35 +11,34 @@
         <!----------------------- ADVERTISEMENT TAB SECTION --------------------->
         <div id="unclaimedadvertisements">
           <div class="flex-row">
-            <div class="margin-right-10">
-              <ul id="dd_category" class="dropdown-content">
-                <%= for category <- @categories do %>
-                  <li><%= category.category_name %></li>
-                <% end %>
-              </ul>
-              <a class="btn dropdown-button dd_button flex-row coral" href = "#" data-activates="dd_category">
-                <span>Category</span>
-                <i class="material-icons">keyboard_arrow_down</i>
-              </a>
-            </div>
-            <div class="margin-right-10">
-              <ul id="dd_period" class="dropdown-content">
-                <li><a href = "#">Last 24 Hours</a></li>
-                <li><a href = "#!">Last Week</a></li>
-                <li><a href = "#">Last 3 Months</a></li>
-                <li><a href = "#">Last Year</a></li>
-              </ul>
-              <a class="btn dropdown-button flex-row coral" href="#" data-activates="dd_period">
-                <span> Period </span>
-                <i class="material-icons">keyboard_arrow_down</i>
-              </a>
-            </div>
-            <div class="input-field title-des-field">
-              <input type="text" name="firstname" class="validate">
-              <label for="last_name">Title, Description</label>
-            </div>
-            <a class="btn-floating coral" id="search-button"><i class="material-icons">search</i></a>
-          </div>
+            <%= form_for @conn, advertisement_path(@conn, :filter_dashboard), [as: :query, method: "post", class: "flex-row"], fn f -> %>
+              <div class="margin-right-10">
+                <select class="width_200 form-control category-select select" id="category_id" name="query[category_id]">
+                  <option value="1">Housing</option>
+                  <option value="2">Electronics</option>
+                  <option value="3">Childcare</option>
+                  <option value="4">Education</option>
+                  <option value="5">Vehicles</option>
+                  <option value="6">Food</option>
+                </select>
+              </div>
+
+              <div class="margin-right-10">
+                <%= date_input f, :datetime %>
+                <%= error_tag f, :datetime %>
+              </div>
+
+              <div class="input-field title-des-field">
+                <%= label f, :title, class: "control-label" %>
+                <%= text_input f, :phrase, class: "form-control" %>
+                <%= error_tag f, :phrase %>
+              </div>
+
+              <%= submit "Search", [class: "button-search"] %>
+
+            <% end %>
+        </div>
+
           <table class="center-align">
             <thead>
               <tr>
@@ -49,18 +48,26 @@
                   <th>Price</th>
                   <th>Date</th>
                   <th>Username</th>
+                  <th>Decline</th>
+                  <th>Claim</th>
               </tr>
             </thead>
             <tbody>
-              <%= for ad <- @advertisements do %>
-                <tr>
-                  <td><%= ad.id %></td>
-                  <td><%= ad.title %></td>
-                  <td><%= ad.details %></td>
-                  <td><%= ad.price %></td>
-                  <td><%= ad.datetime %></td>
-                  <td><%= ad.user_id %></td>
-                </tr>
+              <%= if @advertisements != nil do %>
+                <%= for ad <- @advertisements do %>
+                  <%= if ad.status_id != @declined_stat do %>
+                    <tr>
+                      <td><%= ad.id %></td>
+                      <td><%= ad.title %></td>
+                      <td><%= ad.details %></td>
+                      <td><%= ad.price %></td>
+                      <td><%= ad.datetime %></td>
+                      <td><%= ad.user.username %></td>
+                      <td><i class="material-icons"><%= link "clear", to: advertisement_path(@conn, :decline, ad), method: :put %></i></td>
+                      <td><i class="material-icons"><%= link "done", to: advertisement_path(@conn, :edit, ad)  %></i></td>
+                    </tr>
+                  <% end %>
+                <% end %>
               <% end %>
             </tbody>
           </table>
