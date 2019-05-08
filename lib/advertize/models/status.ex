@@ -32,4 +32,9 @@ defmodule Advertize.Models.Status do
     status.id
   end
 
+  def claim_status do
+    [status] = get_by_type("active")
+    status.id
+  end
+
 end

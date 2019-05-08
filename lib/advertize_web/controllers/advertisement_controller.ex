@@ -60,10 +60,13 @@ defmodule AdvertizeWeb.AdvertisementController do
 
   def dashboard(conn, _params) do
     advertisements = Repo.all(Advertisement) |> Repo.preload(:user)
+    admin_id = Guardian.Plug.current_resource(conn)
 
     conn
     |> render("dashboard.html", maybe_user: Guardian.Plug.current_resource(conn),
-        advertisements: advertisements, categories: Category.get_unformatted_cats, declined_stat: Status.declined_status)
+        advertisements: advertisements, categories: Category.get_unformatted_cats,
+        declined_stat: Status.declined_status, claimed_stat: Status.claim_status,
+        admin_ads: get_ads_by_admin(admin_id))
   end
 
   def home(conn, _params) do
@@ -94,8 +97,12 @@ defmodule AdvertizeWeb.AdvertisementController do
   end
 
   def decline(conn,  %{"id" => advertisement_id}) do
+    mod_id =
+      Guardian.Plug.current_resource(conn).id
+
     Repo.get(Advertisement, advertisement_id)
     |> Ecto.Changeset.change(status_id: Status.declined_status)
+    |> Ecto.Changeset.change(moderator_id: mod_id)
     |> Repo.update
     |> case do
       {:ok, _advertisement} ->
@@ -110,9 +117,35 @@ defmodule AdvertizeWeb.AdvertisementController do
 
   end
 
+  def claim(conn,  %{"id" => advertisement_id}) do
+    mod_id =
+      Guardian.Plug.current_resource(conn).id
+
+    Repo.get(Advertisement, advertisement_id)
+    |> Ecto.Changeset.change(status_id: Status.claim_status)
+    |> Ecto.Changeset.change(moderator_id: mod_id)
+    |> Repo.update
+    |> case do
+      {:ok, _advertisement} ->
+        conn
+        |> put_flash(:info, "Advertisement Claimed")
+        |> redirect(to: advertisement_path(conn, :dashboard))
+      {:error, changeset} ->
+        conn
+        |> put_flash(:info, "Advertisement Not Claimed")
+        |> redirect(to: advertisement_path(conn, :dashboard))
+    end
+
+  end
+
   defp get_ads(user) do
     user.id
     |> Advertisement.get_ad_by_user
+  end
+
+  defp get_ads_by_admin(user) do
+    user.id
+    |> Advertisement.get_ad_by_admin
   end
 
   defp get_category(params) do

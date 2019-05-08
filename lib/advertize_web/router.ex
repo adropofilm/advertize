@@ -31,7 +31,7 @@ defmodule AdvertizeWeb.Router do
 
     get "/home", AdvertisementController, :home
     put "/advertisements/:id", AdvertisementController, :decline
-
+    post "/advertisement/:id", AdvertisementController, :claim
     post "/home", AdvertisementController, :filter_home
     post "/dashboard", AdvertisementController, :filter_dashboard
     get "/dashboard", AdvertisementController, :dashboard
